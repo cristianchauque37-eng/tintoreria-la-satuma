@@ -11,5 +11,6 @@ urlpatterns = [
         views.ConsultaCambiarEstadoView.as_view(),
         name="estado",
     ),
+    path("reportes/", views.ReporteConsultasView.as_view(), name="reporte"),
     path("enviada/", views.ConsultaEnviadaView.as_view(), name="enviada"),
 ]

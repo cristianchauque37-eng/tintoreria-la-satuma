@@ -5,6 +5,28 @@ from servicios.models import Servicio
 from .models import Consulta
 
 
+class ReporteForm(forms.Form):
+    desde = forms.DateField(
+        label="Desde", widget=forms.DateInput(attrs={"type": "date"})
+    )
+    hasta = forms.DateField(
+        label="Hasta", widget=forms.DateInput(attrs={"type": "date"})
+    )
+    estado = forms.ChoiceField(
+        label="Estado", required=False,
+        choices=[("", "Todos los estados")] + Consulta.Estado.choices,
+    )
+
+    def clean(self):
+        datos = super().clean()
+        desde, hasta = datos.get("desde"), datos.get("hasta")
+        if desde and hasta and desde > hasta:
+            raise forms.ValidationError(
+                "La fecha desde no puede ser posterior a la fecha hasta."
+            )
+        return datos
+
+
 class ConsultaForm(forms.ModelForm):
     class Meta:
         model = Consulta

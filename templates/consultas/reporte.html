@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Reporte de consultas
+{% endblock %}
+
+{% block content %}
+
+<a class="volver" href="{% url 'consultas:gestion' %}">← Volver a consultas</a>
+<p class="antetitulo">Administración</p>
+<h1>Reporte de consultas</h1>
+<p>Elegí un período y, si querés, un estado.</p>
+
+<form method="get" class="panel">{% include 'componentes/formulario.html' %}<div class="acciones">
+<button type="submit">Generar reporte</button>
+</div>
+</form>
+
+{% if generado %}
+<section class="panel contacto" aria-labelledby="resultado">
+<h2 id="resultado">Resultado</h2>
+<dl>
+<div><dt>Total de consultas</dt><dd>{{ total }}</dd></div>
+{% for nombre, cantidad in por_estado %}
+<div><dt>{{ nombre }}</dt><dd>{{ cantidad }}</dd></div>
+{% endfor %}
+</dl>
+
+<h2>Consultas por servicio</h2>
+{% if por_servicio or sin_servicio %}
+<div class="tabla-scroll" tabindex="0" role="region" aria-label="Consultas por servicio">
+<table>
+<thead>
+<tr><th scope="col">Servicio</th><th scope="col">Consultas</th></tr>
+</thead>
+<tbody>
+{% for fila in por_servicio %}
+<tr><td>{{ fila.servicio__nombre }}</td><td class="numero">{{ fila.total }}</td></tr>
+{% endfor %}
+<tr><td>Sin servicio</td><td class="numero">{{ sin_servicio }}</td></tr>
+</tbody>
+</table>
+</div>
+{% else %}
+<p>No hay consultas en ese período.</p>
+{% endif %}
+</section>
+{% endif %}
+{% endblock %}

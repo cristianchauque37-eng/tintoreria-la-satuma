@@ -101,3 +101,49 @@ class GestionConsultasTests(TestCase):
         self.client.force_login(self.admin)
         r = self.client.get(reverse("consultas:gestion") + "?estado=archivada")
         self.assertNotContains(r, "Luis")
+
+
+class ReporteTests(TestCase):
+    def setUp(self):
+        self.admin = get_user_model().objects.create_superuser(
+            "jefe", password="x12345678abc"
+        )
+        u = self.admin
+        self.s = Servicio.objects.create(
+            nombre="Campera", precio=1, creado_por=u, actualizado_por=u
+        )
+        Consulta.objects.create(nombre="A", telefono="1", mensaje="m", servicio=self.s)
+        Consulta.objects.create(
+            nombre="B", telefono="1", mensaje="m", estado="respondida"
+        )
+        self.client.force_login(self.admin)
+        from django.utils import timezone
+
+        self.hoy = timezone.localdate().isoformat()
+
+    def test_reporte_totales(self):
+        r = self.client.get(
+            reverse("consultas:reporte"), {"desde": self.hoy, "hasta": self.hoy}
+        )
+        self.assertEqual(r.context["total"], 2)
+        self.assertEqual(dict(r.context["por_estado"])["Pendiente"], 1)
+        self.assertEqual(r.context["sin_servicio"], 1)
+        self.assertEqual(r.context["por_servicio"][0]["total"], 1)
+
+    def test_reporte_filtra_estado(self):
+        r = self.client.get(
+            reverse("consultas:reporte"),
+            {"desde": self.hoy, "hasta": self.hoy, "estado": "respondida"},
+        )
+        self.assertEqual(r.context["total"], 1)
+
+    def test_periodo_invalido(self):
+        r = self.client.get(
+            reverse("consultas:reporte"), {"desde": "2026-12-01", "hasta": "2026-01-01"}
+        )
+        self.assertNotIn("generado", r.context)
+
+    def test_visitante_no_accede(self):
+        self.client.logout()
+        r = self.client.get(reverse("consultas:reporte"))
+        self.assertNotEqual(r.status_code, 200)

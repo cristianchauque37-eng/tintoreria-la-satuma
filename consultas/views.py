@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.db.models import Q
+from django.db.models import Count, Q
 from django.shortcuts import get_object_or_404, redirect
 from django.views import View
 from django.views.generic import CreateView, ListView, TemplateView
@@ -7,7 +7,7 @@ from django.views.generic import CreateView, ListView, TemplateView
 from catalogo.views import SoloAdministradorMixin
 from negocio.models import Negocio
 
-from .forms import ConsultaForm
+from .forms import ConsultaForm, ReporteForm
 from .models import Consulta
 
 
@@ -91,3 +91,42 @@ class ConsultaCambiarEstadoView(SoloAdministradorMixin, View):
         else:
             messages.error(request, "Estado no válido.")
         return redirect("consultas:gestion")
+
+
+class ReporteConsultasView(SoloAdministradorMixin, TemplateView):
+    """HU13 y HU14: totales por estado y por servicio en un período."""
+
+    template_name = "consultas/reporte.html"
+
+    def get_context_data(self, **kwargs):
+        contexto = super().get_context_data(**kwargs)
+        if self.request.GET:
+            form = ReporteForm(self.request.GET)
+        else:
+            form = ReporteForm()
+        contexto["form"] = form
+        if self.request.GET and form.is_valid():
+            datos = form.cleaned_data
+            qs = Consulta.objects.filter(
+                creado__date__gte=datos["desde"], creado__date__lte=datos["hasta"]
+            )
+            if datos["estado"]:
+                qs = qs.filter(estado=datos["estado"])
+            por_estado = {
+                f["estado"]: f["total"]
+                for f in qs.values("estado").annotate(total=Count("id"))
+            }
+            contexto["total"] = qs.count()
+            contexto["por_estado"] = [
+                (nombre, por_estado.get(valor, 0))
+                for valor, nombre in Consulta.Estado.choices
+            ]
+            contexto["por_servicio"] = list(
+                qs.filter(servicio__isnull=False)
+                .values("servicio__nombre")
+                .annotate(total=Count("id"))
+                .order_by("-total", "servicio__nombre")
+            )
+            contexto["sin_servicio"] = qs.filter(servicio__isnull=True).count()
+            contexto["generado"] = True
+        return contexto
