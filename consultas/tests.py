@@ -147,3 +147,14 @@ class ReporteTests(TestCase):
         self.client.logout()
         r = self.client.get(reverse("consultas:reporte"))
         self.assertNotEqual(r.status_code, 200)
+
+
+class InicioAdminTests(TestCase):
+    def test_inicio_admin_muestra_resumen(self):
+        admin = get_user_model().objects.create_superuser("jefe", password="x12345678abc")
+        Consulta.objects.create(nombre="Zoe", telefono="1", mensaje="m")
+        self.client.force_login(admin)
+        r = self.client.get(reverse("inicio:home"))
+        self.assertContains(r, "Consultas pendientes")
+        self.assertContains(r, "Zoe")
+        self.assertNotContains(r, "Catálogo")

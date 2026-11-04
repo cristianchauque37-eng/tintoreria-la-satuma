@@ -1,29 +1,27 @@
 from django.db import connection
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
-from catalogo.models import Producto, Categoria
+
+from consultas.models import Consulta
 from cuentas.models import Usuario
+from servicios.models import Servicio
 
 
 def home(request):
     if not request.user.is_authenticated:
         return redirect("servicios:publico")
-    return render(
-        request,
-        "inicio/home.html",
-        {
-            "productos": Producto.objects.count(),
-            "categorias": Categoria.objects.count(),
-            "pendientes": (
-                Usuario.objects.filter(estado="pendiente").count()
-                if request.user.is_superuser
-                else None
-            ),
-            "recientes": Producto.objects.select_related("categoria").order_by(
-                "-actualizado"
-            )[:5],
-        },
-    )
+    contexto = {}
+    if request.user.is_superuser:
+        contexto = {
+            "servicios_activos": Servicio.objects.filter(activo=True).count(),
+            "consultas_pendientes": Consulta.objects.filter(
+                estado=Consulta.Estado.PENDIENTE
+            ).count(),
+            "consultas_total": Consulta.objects.count(),
+            "solicitudes_pendientes": Usuario.objects.filter(estado="pendiente").count(),
+            "recientes": Consulta.objects.select_related("servicio")[:5],
+        }
+    return render(request, "inicio/home.html", contexto)
 
 
 def salud(request):

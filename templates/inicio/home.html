@@ -6,53 +6,59 @@ Inicio
 
 {% block content %}
 
-<p class="antetitulo">Tu espacio de trabajo</p>
+<p class="antetitulo">Panel de administración</p>
 <div class="encabezado">
 <div>
 <h1>Hola, {{ user.first_name|default:user.username }}.</h1>
-<p>Esta es la información de tu organización.</p>
+<p>Este es el resumen de Tintorería La Satuma.</p>
 </div>
-<a class="boton" href="{% url 'catalogo:crear' %}">Agregar producto</a>
+<a class="boton" href="{% url 'servicios:publico' %}">Ver página pública</a>
 </div>
-<div class="resumen">
-<a href="{% url 'catalogo:lista' %}">
-<span>Productos registrados</span>
-<strong>{{ productos }}</strong>
-</a>
-<a href="{% url 'catalogo:categorias' %}">
-<span>Categorías</span>
-<strong>{{ categorias }}</strong>
-</a>
+
 {% if user.is_superuser %}
-<a href="{% url 'cuentas:solicitudes' %}">
-<span>Solicitudes pendientes</span>
-<strong>{{ pendientes }}</strong>
+<div class="resumen">
+<a href="{% url 'servicios:gestion' %}">
+<span>Servicios activos</span>
+<strong>{{ servicios_activos }}</strong>
 </a>
-{% endif %}
+<a href="{% url 'consultas:gestion' %}?estado=pendiente">
+<span>Consultas pendientes</span>
+<strong>{{ consultas_pendientes }}</strong>
+</a>
+<a href="{% url 'consultas:gestion' %}">
+<span>Consultas recibidas</span>
+<strong>{{ consultas_total }}</strong>
+</a>
+<a href="{% url 'cuentas:solicitudes' %}">
+<span>Solicitudes de acceso</span>
+<strong>{{ solicitudes_pendientes }}</strong>
+</a>
 </div>
+
 <div class="encabezado">
-<h2>Últimos productos actualizados</h2>
-<a href="{% url 'catalogo:lista' %}">Ver catálogo completo →</a>
+<h2>Últimas consultas</h2>
+<a href="{% url 'consultas:gestion' %}">Ver todas →</a>
 </div>
 <div class="lista-recientes">
-{% for producto in recientes %}
-<a href="{{ producto.get_absolute_url }}">
+{% for c in recientes %}
+<a href="{% url 'consultas:gestion' %}">
 <span>
-<strong>{{ producto.nombre }}</strong>
-<small>{{ producto.categoria }} · {{ producto.codigo }}</small>
+<strong>{{ c.nombre }}</strong>
+<small>{% if c.servicio %}{{ c.servicio.nombre }}{% else %}Sin servicio{% endif %} · {{ c.creado|date:"d/m/Y H:i" }}</small>
 </span>
-<span>{{ producto.stock }} unidades</span>
+<span>{{ c.get_estado_display }}</span>
 </a>{% empty %}<div class="vacio">
-<h2>El catálogo está listo para empezar</h2>
-<p>
-{% if user.is_superuser %}
-Creá una categoría y después agregá tu primer producto.
-{% else %}
-Pedile al administrador que cree las categorías para comenzar.
-{% endif %}
-</p>
-<a href="{% url 'catalogo:categorias' %}">Ir a categorías →</a>
+<h2>Todavía no hay consultas</h2>
+<p>Cuando un cliente envíe una consulta desde la página pública, va a aparecer acá.</p>
 </div>
 {% endfor %}
 </div>
+{% else %}
+<div class="vacio">
+<h2>Bienvenido</h2>
+<p>Tu cuenta no tiene permisos de administración.</p>
+<a href="{% url 'servicios:publico' %}">Ir a la página pública</a>
+</div>
+{% endif %}
+
 {% endblock %}
