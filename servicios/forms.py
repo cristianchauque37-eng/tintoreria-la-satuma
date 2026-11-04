@@ -5,7 +5,7 @@ from .models import Servicio
 class ServicioForm(forms.ModelForm):
     class Meta:
         model = Servicio
-        fields = ("nombre", "descripcion", "precio", "imagen", "activo")
+        fields = ("nombre", "categoria", "descripcion", "precio", "imagen", "activo")
         widgets = {"descripcion": forms.Textarea(attrs={"rows": 4})}
 
     def clean_imagen(self):

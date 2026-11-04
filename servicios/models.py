@@ -5,7 +5,17 @@ from django.db.models.functions import Lower
 
 
 class Servicio(models.Model):
+    class Categoria(models.TextChoices):
+        TINTORERIA = "tintoreria", "Tintorería"
+        CALZADO = "calzado", "Calzado y accesorios"
+        LAVANDERIA = "lavanderia", "Lavandería"
+        OFERTAS = "ofertas", "Ofertas"
+        OTROS = "otros", "Otros servicios"
+
     nombre = models.CharField(max_length=120)
+    categoria = models.CharField(
+        max_length=12, choices=Categoria.choices, default=Categoria.TINTORERIA
+    )
     descripcion = models.TextField("descripción", blank=True, max_length=2000)
     precio = models.DecimalField(
         max_digits=12, decimal_places=2, validators=[MinValueValidator(0)]

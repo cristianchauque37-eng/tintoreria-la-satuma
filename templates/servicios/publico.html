@@ -6,41 +6,53 @@ Servicios
 
 {% block content %}
 
-<p class="antetitulo">Tintorería</p>
-<div class="encabezado">
-<div>
-<h1>Nuestros servicios</h1>
-<p>Limpieza en seco de cuero, gamuza y nobuk.</p>
+<section class="portada">
+<p class="antetitulo">Salta · Limpieza en seco</p>
+<h1>Tu campera de cuero, como nueva.</h1>
+<p>Limpieza en seco de cuero, gamuza y nobuk. Consultanos sin compromiso.</p>
+<div class="acciones">
+<a class="boton" href="#catalogo">Ver servicios</a>
+<a class="boton secundario" href="{% url 'consultas:nueva' %}">Hacer una consulta</a>
 </div>
-<a class="boton" href="{% url 'consultas:nueva' %}">Hacer una consulta</a>
-</div>
+</section>
 
-{% if object_list %}
-<div class="solicitudes">
-{% for s in object_list %}
-<article class="panel solicitud">
-<div class="servicio-cab">
+<section class="pasos" aria-label="Cómo trabajamos">
+<div><span>1</span><h3>Consultanos</h3><p>Escribinos desde el formulario o por WhatsApp.</p></div>
+<div><span>2</span><h3>Traé tu prenda</h3><p>Acercala a nuestro local en Salta.</p></div>
+<div><span>3</span><h3>Retirala como nueva</h3><p>La limpiamos con el tratamiento adecuado.</p></div>
+</section>
+
+<div id="catalogo"></div>
+{% if grupos %}
+{% for nombre, servicios in grupos %}
+<section class="categoria" aria-labelledby="cat-{{ forloop.counter }}">
+<h2 id="cat-{{ forloop.counter }}">{{ nombre }}</h2>
+<div class="rejilla">
+{% for s in servicios %}
+<article class="tarjeta-servicio">
 {% if s.imagen %}
-<img class="servicio-img" src="{{ s.imagen.url }}" alt="{{ s.nombre }}">
+<img src="{{ s.imagen.url }}" alt="{{ s.nombre }}">
+{% else %}
+<div class="sin-imagen" aria-hidden="true">{{ s.nombre|slice:":1" }}</div>
 {% endif %}
-<div>
-<h2>{{ s.nombre }}</h2>
+<div class="cuerpo">
+<h3>{{ s.nombre }}</h3>
 {% if s.descripcion %}
 <p>{{ s.descripcion }}</p>
 {% endif %}
+<strong class="numero">{% if s.precio > 0 %}$ {{ s.precio|floatformat:"-2g" }}{% else %}Consultar precio{% endif %}</strong>
 </div>
-</div>
-<strong class="numero">$ {{ s.precio|floatformat:"-2g" }}</strong>
 </article>
 {% endfor %}
 </div>
+</section>
+{% endfor %}
 {% else %}
 <div class="vacio">
 <h2>Pronto vamos a publicar nuestros servicios</h2>
 <p>Todavía no hay servicios cargados.</p>
 </div>
 {% endif %}
-
 
 {% if negocio.direccion or negocio.horarios or negocio.telefono or negocio.whatsapp %}
 <section class="panel contacto" aria-labelledby="contacto">

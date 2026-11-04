@@ -22,6 +22,12 @@ class ServicioPublicoListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["negocio"] = Negocio.obtener()
+        servicios = list(context["object_list"])
+        context["grupos"] = [
+            (nombre, [s for s in servicios if s.categoria == valor])
+            for valor, nombre in Servicio.Categoria.choices
+            if any(s.categoria == valor for s in servicios)
+        ]
         return context
 
 
