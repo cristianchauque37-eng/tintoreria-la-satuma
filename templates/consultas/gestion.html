@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Consultas
+{% endblock %}
+
+{% block content %}
+
+<p class="antetitulo">Administración</p>
+<div class="encabezado">
+<div>
+<h1>Consultas</h1>
+<p>Consultas que enviaron los clientes desde la página pública.</p>
+</div>
+</div>
+<div class="herramientas">
+<form method="get" class="busqueda">
+<label for="buscar">Buscar por nombre o mensaje</label>
+<div>
+<input id="buscar" name="q" value="{{ request.GET.q }}" maxlength="100" type="search">
+<select name="estado" aria-label="Filtrar por estado">
+<option value="">Todos los estados</option>
+{% for valor, nombre in estados %}
+<option value="{{ valor }}"{% if valor == estado_actual %} selected{% endif %}>{{ nombre }}</option>
+{% endfor %}
+</select>
+<button type="submit">Filtrar</button>
+</div>
+</form>
+</div>
+
+{% if object_list %}
+<div class="tabla-scroll" tabindex="0" role="region" aria-label="Consultas">
+<table>
+<caption>{{ paginator.count }} consulta{{ paginator.count|pluralize:'s' }}</caption>
+<thead>
+<tr>
+<th scope="col">Fecha</th>
+<th scope="col">Cliente</th>
+<th scope="col">Servicio</th>
+<th scope="col">Estado</th>
+<th scope="col">Acción</th>
+</tr>
+</thead>
+<tbody>
+{% for c in object_list %}
+<tr>
+<td>{{ c.creado|date:"d/m/Y H:i" }}</td>
+<td>
+<strong>{{ c.nombre }}</strong>
+<small>{% if c.telefono %}{{ c.telefono }}{% endif %}{% if c.telefono and c.email %} · {% endif %}{% if c.email %}{{ c.email }}{% endif %}</small>
+<small>{{ c.mensaje|truncatechars:120 }}</small>
+</td>
+<td>{% if c.servicio %}{{ c.servicio.nombre }}{% else %}—{% endif %}</td>
+<td>{{ c.get_estado_display }}</td>
+<td>
+<form method="post" action="{% url 'consultas:estado' c.pk %}" class="acciones">{% csrf_token %}
+<select name="estado" aria-label="Nuevo estado de la consulta de {{ c.nombre }}">
+{% for valor, nombre in estados %}
+<option value="{{ valor }}"{% if valor == c.estado %} selected{% endif %}>{{ nombre }}</option>
+{% endfor %}
+</select>
+<button class="secundario" type="submit">Guardar</button>
+</form>
+</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+{% include 'componentes/paginacion.html' %}
+{% else %}
+<div class="vacio">
+<h2>No hay consultas</h2>
+<p>Cuando un cliente envíe una consulta, va a aparecer acá.</p>
+</div>
+{% endif %}
+
+{% endblock %}

@@ -60,3 +60,44 @@ class ConsultaTests(TestCase):
         )
         self.assertEqual(r.status_code, 200)
         self.assertEqual(Consulta.objects.count(), 0)
+
+
+class GestionConsultasTests(TestCase):
+    def setUp(self):
+        self.admin = get_user_model().objects.create_superuser(
+            "jefe", password="x12345678abc"
+        )
+        self.consulta = Consulta.objects.create(
+            nombre="Luis", telefono="1", mensaje="Hola"
+        )
+
+    def test_visitante_no_accede(self):
+        r = self.client.get(reverse("consultas:gestion"))
+        self.assertNotEqual(r.status_code, 200)
+
+    def test_admin_ve_lista(self):
+        self.client.force_login(self.admin)
+        r = self.client.get(reverse("consultas:gestion"))
+        self.assertContains(r, "Luis")
+
+    def test_admin_cambia_estado(self):
+        self.client.force_login(self.admin)
+        self.client.post(
+            reverse("consultas:estado", args=[self.consulta.pk]),
+            {"estado": "respondida"},
+        )
+        self.consulta.refresh_from_db()
+        self.assertEqual(self.consulta.estado, "respondida")
+
+    def test_estado_invalido_se_ignora(self):
+        self.client.force_login(self.admin)
+        self.client.post(
+            reverse("consultas:estado", args=[self.consulta.pk]), {"estado": "xx"}
+        )
+        self.consulta.refresh_from_db()
+        self.assertEqual(self.consulta.estado, "pendiente")
+
+    def test_filtro_por_estado(self):
+        self.client.force_login(self.admin)
+        r = self.client.get(reverse("consultas:gestion") + "?estado=archivada")
+        self.assertNotContains(r, "Luis")

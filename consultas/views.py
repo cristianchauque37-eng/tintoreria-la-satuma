@@ -1,6 +1,10 @@
+from django.contrib import messages
+from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect
-from django.views.generic import CreateView, TemplateView
+from django.views import View
+from django.views.generic import CreateView, ListView, TemplateView
 
+from catalogo.views import SoloAdministradorMixin
 from negocio.models import Negocio
 
 from .forms import ConsultaForm
@@ -44,3 +48,46 @@ class ConsultaEnviadaView(TemplateView):
         contexto["negocio"] = negocio
         contexto["enlace_whatsapp"] = consulta.enlace_whatsapp(negocio.whatsapp)
         return contexto
+
+
+class ConsultaGestionListView(SoloAdministradorMixin, ListView):
+    """HU11: el administrador ve las consultas con su servicio asociado."""
+
+    model = Consulta
+    template_name = "consultas/gestion.html"
+    paginate_by = 15
+
+    def get_queryset(self):
+        qs = super().get_queryset().select_related("servicio")
+        estado = self.request.GET.get("estado", "")
+        if estado in Consulta.Estado.values:
+            qs = qs.filter(estado=estado)
+        q = self.request.GET.get("q", "").strip()[:100]
+        if q:
+            qs = qs.filter(Q(nombre__icontains=q) | Q(mensaje__icontains=q))
+        return qs
+
+    def get_context_data(self, **kwargs):
+        contexto = super().get_context_data(**kwargs)
+        contexto["estados"] = Consulta.Estado.choices
+        contexto["estado_actual"] = self.request.GET.get("estado", "")
+        return contexto
+
+
+class ConsultaCambiarEstadoView(SoloAdministradorMixin, View):
+    """HU12: pendiente, respondida o archivada."""
+
+    http_method_names = ["post"]
+
+    def post(self, request, pk):
+        consulta = get_object_or_404(Consulta, pk=pk)
+        estado = request.POST.get("estado")
+        if estado in Consulta.Estado.values:
+            consulta.estado = estado
+            consulta.save(update_fields=["estado"])
+            messages.success(
+                request, f"Consulta marcada como {consulta.get_estado_display().lower()}."
+            )
+        else:
+            messages.error(request, "Estado no válido.")
+        return redirect("consultas:gestion")

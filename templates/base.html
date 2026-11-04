@@ -59,6 +59,11 @@ aria-current="page"
 aria-current="page"
 {% endif %}
 >Servicios</a>
+<a href="{% url 'consultas:gestion' %}"
+{% if request.resolver_match.app_name == 'consultas' %}
+aria-current="page"
+{% endif %}
+>Consultas</a>
 <a href="{% url 'negocio:editar' %}"
 {% if request.resolver_match.app_name == 'negocio' %}
 aria-current="page"
