@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView, ListView, UpdateView
 from catalogo.views import GuardadoSeguroMixin, SoloAdministradorMixin
+from negocio.models import Negocio
 from .forms import ServicioForm
 from .models import Servicio
 
@@ -17,6 +18,11 @@ class ServicioPublicoListView(ListView):
 
     def get_queryset(self):
         return Servicio.objects.filter(activo=True)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["negocio"] = Negocio.obtener()
+        return context
 
 
 class ServicioGestionListView(SoloAdministradorMixin, ListView):

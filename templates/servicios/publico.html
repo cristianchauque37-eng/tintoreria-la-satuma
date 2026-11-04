@@ -35,4 +35,25 @@ Servicios
 </div>
 {% endif %}
 
+
+{% if negocio.direccion or negocio.horarios or negocio.telefono or negocio.whatsapp %}
+<section class="panel contacto" aria-labelledby="contacto">
+<h2 id="contacto">Dónde encontrarnos</h2>
+<dl>
+{% if negocio.direccion %}
+<div><dt>Dirección</dt><dd>{{ negocio.direccion }}</dd></div>
+{% endif %}
+{% if negocio.horarios %}
+<div><dt>Horarios</dt><dd>{{ negocio.horarios }}</dd></div>
+{% endif %}
+{% if negocio.telefono %}
+<div><dt>Teléfono</dt><dd>{{ negocio.telefono }}</dd></div>
+{% endif %}
+</dl>
+{% if negocio.whatsapp %}
+<a class="boton" href="{{ negocio.enlace_whatsapp }}" target="_blank" rel="noopener">Escribinos por WhatsApp</a>
+{% endif %}
+</section>
+{% endif %}
+
 {% endblock %}

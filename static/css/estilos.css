@@ -532,3 +532,17 @@ button:disabled {
     scroll-behavior:auto!important;
   }
 }
+.contacto {
+  margin-top:32px;
+}
+.contacto dl {
+  display:flex;
+  gap:48px;
+  flex-wrap:wrap;
+  margin:0 0 24px;
+}
+.contacto dd {
+  margin:4px 0;
+  font-size:18px;
+  font-weight:600;
+}

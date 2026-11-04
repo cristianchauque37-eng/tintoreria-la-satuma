@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Datos del negocio
+{% endblock %}
+
+{% block content %}
+
+<div class="form-contenedor">
+<p class="antetitulo">Administración</p>
+<h1>Datos del negocio</h1>
+<p>Esta información se muestra a los clientes en la página pública.</p>
+
+<form method="post" class="panel">{% csrf_token %}{% include 'componentes/formulario.html' %}<div class="acciones">
+<button type="submit">Guardar cambios</button>
+<a href="{% url 'servicios:publico' %}">Ver página pública</a>
+</div>
+</form>
+</div>
+{% endblock %}

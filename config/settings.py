@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "cuentas",
     "catalogo",
     "servicios",
+    "negocio",
     "inicio",
     "axes",
 ]
