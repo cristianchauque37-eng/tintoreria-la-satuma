@@ -18,3 +18,19 @@ class EjemplosTests(TestCase):
         self.assertContains(r, "Calzado y accesorios")
         self.assertContains(r, "Consultar precio")
         self.assertContains(r, "Tu campera de cuero")
+
+
+class ImagenesEjemploTests(TestCase):
+    def test_asigna_imagenes_sin_pisar_las_existentes(self):
+        import tempfile
+
+        from django.test import override_settings
+
+        get_user_model().objects.create_superuser("jefe2", password="x12345678abc")
+        with tempfile.TemporaryDirectory() as tmp, override_settings(MEDIA_ROOT=tmp):
+            call_command("cargar_ejemplos")
+            call_command("cargar_imagenes")
+            self.assertEqual(Servicio.objects.exclude(imagen="").exclude(imagen=None).count(), 20)
+            primero = Servicio.objects.get(nombre="Campera de cuero").imagen.name
+            call_command("cargar_imagenes")  # no pisa
+            self.assertEqual(Servicio.objects.get(nombre="Campera de cuero").imagen.name, primero)
