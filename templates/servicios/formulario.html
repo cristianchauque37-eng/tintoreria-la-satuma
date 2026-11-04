@@ -23,7 +23,7 @@ Agregar
  servicio</h1>
 <p>Los servicios activos se muestran a los clientes en la página pública.</p>
 
-<form method="post" class="panel">{% csrf_token %}{% include 'componentes/formulario.html' %}<div class="acciones">
+<form method="post" enctype="multipart/form-data" class="panel">{% csrf_token %}{% include 'componentes/formulario.html' %}<div class="acciones">
 <button type="submit">Guardar servicio</button>
 <a href="{% url 'servicios:gestion' %}">Cancelar</a>
 </div>

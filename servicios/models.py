@@ -10,6 +10,10 @@ class Servicio(models.Model):
     precio = models.DecimalField(
         max_digits=12, decimal_places=2, validators=[MinValueValidator(0)]
     )
+    imagen = models.ImageField(
+        "imagen", upload_to="servicios/", blank=True, null=True,
+        help_text="Opcional. Formatos JPG, PNG o WEBP.",
+    )
     activo = models.BooleanField(
         default=True, help_text="Si está desmarcado, no se muestra a los clientes."
     )

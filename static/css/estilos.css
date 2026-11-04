@@ -546,3 +546,7 @@ button:disabled {
   font-size:18px;
   font-weight:600;
 }
+
+.servicio-img{width:96px;height:96px;object-fit:cover;border-radius:10px;margin-right:16px}
+.miniatura{display:block;width:48px;height:48px;object-fit:cover;border-radius:6px;margin-bottom:6px}
+.servicio-cab{display:flex;align-items:center;gap:0}

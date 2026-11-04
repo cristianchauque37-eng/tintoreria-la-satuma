@@ -41,6 +41,7 @@ Servicios
 {% for s in object_list %}
 <tr>
 <td>
+{% if s.imagen %}<img class="miniatura" src="{{ s.imagen.url }}" alt="">{% endif %}
 <strong>{{ s.nombre }}</strong>
 {% if s.descripcion %}
 <small>{{ s.descripcion|truncatechars:80 }}</small>
