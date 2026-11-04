@@ -1,13 +1,13 @@
-from django.contrib.auth.decorators import login_required
 from django.db import connection
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from catalogo.models import Producto, Categoria
 from cuentas.models import Usuario
 
 
-@login_required
 def home(request):
+    if not request.user.is_authenticated:
+        return redirect("servicios:publico")
     return render(
         request,
         "inicio/home.html",

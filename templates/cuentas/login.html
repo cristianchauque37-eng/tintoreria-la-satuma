@@ -7,19 +7,19 @@ Iniciar sesión
 {% block content %}
 <div class="acceso">
 <section class="introduccion">
-<p class="antetitulo">Todo en un mismo lugar</p>
-<h1>Tu organización,<br> más cerca.</h1>
-<p>Consultá el catálogo y mantené la información al día desde tu espacio de trabajo.</p>
-<div class="nota">El acceso requiere una cuenta aprobada por el administrador.</div>
+<p class="antetitulo">Tintorería La Satuma</p>
+<h1>Panel de<br> administración.</h1>
+<p>Gestioná los servicios, los datos del negocio y las consultas de tus clientes.</p>
+<div class="nota">Acceso exclusivo para el administrador del negocio.</div>
 </section>
 <section class="panel">
-<h2>Iniciar sesión</h2>
-<p>Ingresá con tu nombre de usuario y contraseña.</p>
+<h2>Ingreso del administrador</h2>
+<p>Ingresá con tu usuario y contraseña.</p>
 <form method="post">{% csrf_token %}{% include 'componentes/formulario.html' %}<input type="hidden" name="next" value="{{ next }}">
-<button class="ancho" type="submit">Ingresar al sistema</button>
+<button class="ancho" type="submit">Ingresar</button>
 </form>
-<p class="pie-form">¿Es tu primera vez? <a href="{% url 'cuentas:registro' %}">Solicitá acceso</a>.</p>
-<p class="ayuda">Si olvidaste tu contraseña, contactá al administrador.</p>
+<p class="pie-form"><a href="{% url 'servicios:publico' %}">← Volver a la página pública</a></p>
+<p class="ayuda">Si olvidaste tu contraseña, contactá al responsable del sistema.</p>
 </section>
 </div>
 {% endblock %}
