@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Servicios
+{% endblock %}
+
+{% block content %}
+
+<p class="antetitulo">Tintorería</p>
+<div class="encabezado">
+<div>
+<h1>Nuestros servicios</h1>
+<p>Limpieza en seco de cuero, gamuza y nobuk.</p>
+</div>
+</div>
+
+{% if object_list %}
+<div class="solicitudes">
+{% for s in object_list %}
+<article class="panel solicitud">
+<div>
+<h2>{{ s.nombre }}</h2>
+{% if s.descripcion %}
+<p>{{ s.descripcion }}</p>
+{% endif %}
+</div>
+<strong class="numero">$ {{ s.precio|floatformat:"-2g" }}</strong>
+</article>
+{% endfor %}
+</div>
+{% else %}
+<div class="vacio">
+<h2>Pronto vamos a publicar nuestros servicios</h2>
+<p>Todavía no hay servicios cargados.</p>
+</div>
+{% endif %}
+
+{% endblock %}

@@ -14,7 +14,7 @@ Inicio
 <body>
 <a class="skip" href="#contenido">Saltar al contenido</a>
 <header class="cabecera">
-<a class="marca" href="{% url 'inicio:home' %}">
+<a class="marca" href="{% url 'servicios:publico' %}">
 <span class="sello" aria-hidden="true">S</span>
 <span>{{ organizacion_nombre }}<small>Gestión de consultas y servicios</small>
 </span>
@@ -33,6 +33,10 @@ Operador
 <form method="post" action="{% url 'cuentas:logout' %}">{% csrf_token %}<button class="secundario" type="submit">Cerrar sesión</button>
 </form>
 </div>
+{% else %}
+<div class="sesion">
+<a href="{% url 'cuentas:login' %}">Ingresar</a>
+</div>
 {% endif %}
 </header>
 
@@ -50,6 +54,11 @@ aria-current="page"
 >Catálogo</a>
 
 {% if user.is_superuser %}
+<a href="{% url 'servicios:gestion' %}"
+{% if request.resolver_match.app_name == 'servicios' %}
+aria-current="page"
+{% endif %}
+>Servicios</a>
 <a href="{% url 'cuentas:solicitudes' %}"
 {% if request.resolver_match.app_name == 'cuentas' %}
 aria-current="page"

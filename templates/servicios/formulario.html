@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{% if object %}
+Editar
+{% else %}
+Agregar
+{% endif %}
+ servicio
+{% endblock %}
+
+{% block content %}
+
+<div class="form-contenedor">
+<a class="volver" href="{% url 'servicios:gestion' %}">← Volver a servicios</a>
+<p class="antetitulo">Servicios</p>
+<h1>
+{% if object %}
+Editar
+{% else %}
+Agregar
+{% endif %}
+ servicio</h1>
+<p>Los servicios activos se muestran a los clientes en la página pública.</p>
+
+<form method="post" class="panel">{% csrf_token %}{% include 'componentes/formulario.html' %}<div class="acciones">
+<button type="submit">Guardar servicio</button>
+<a href="{% url 'servicios:gestion' %}">Cancelar</a>
+</div>
+</form>
+</div>
+{% endblock %}
