@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Consulta recibida
+{% endblock %}
+
+{% block content %}
+
+<div class="form-contenedor">
+<p class="antetitulo">Consulta registrada</p>
+<h1>¡Gracias, {{ consulta.nombre }}!</h1>
+<div class="panel">
+<p>Recibimos tu consulta el <strong>{{ consulta.creado|date:"d/m/Y" }}</strong> a las <strong>{{ consulta.creado|date:"H:i" }}</strong>.</p>
+{% if consulta.servicio %}<p>Servicio: {{ consulta.servicio.nombre }}</p>{% endif %}
+<p>Para recibir una respuesta más rápida, enviala también por WhatsApp:</p>
+<div class="acciones">
+{% if enlace_whatsapp %}
+<a class="boton" href="{{ enlace_whatsapp }}" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+{% else %}
+<p>El negocio todavía no configuró su WhatsApp. Te vamos a contactar por los datos que dejaste.</p>
+{% endif %}
+<a href="{% url 'servicios:publico' %}">Volver a servicios</a>
+</div>
+</div>
+</div>
+{% endblock %}

@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "cuentas",
     "catalogo",
     "servicios",
+    "consultas",
     "negocio",
     "inicio",
     "axes",
