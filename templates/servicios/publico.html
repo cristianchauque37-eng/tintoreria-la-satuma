@@ -1,62 +1,121 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
 Servicios
 {% endblock %}
 
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/publico.css' %}">
+{% endblock %}
+
+{% block body_class %}es-publico{% endblock %}
+{% block main_class %}pub-main{% endblock %}
+
+{% block cabecera %}
+{% include 'servicios/_cabecera_publica.html' %}
+{% endblock %}
+
 {% block content %}
 
-<section class="portada">
-<p class="antetitulo">Salta · Limpieza en seco</p>
-<h1>Cuidamos lo que más te gusta vestir.</h1>
-<p>Limpieza en seco de cuero, gamuza y nobuk. Consultanos sin compromiso.</p>
-<div class="acciones">
-<a class="boton" href="#catalogo">Ver servicios</a>
-<a class="boton secundario" href="{% url 'consultas:nueva' %}">Hacer una consulta</a>
+<section class="pub-hero" aria-roledescription="carrusel" aria-label="Portada">
+<div class="pub-slides" aria-hidden="true">
+<img class="pub-slide es-activo" src="{% static 'img/hero-gamuza.jpg' %}" alt="" width="1672" height="941">
+<img class="pub-slide pub-slide-2" src="{% static 'img/hero-abrigos.jpg' %}" alt="" width="1920" height="1280" loading="lazy">
+<img class="pub-slide pub-slide-3" src="{% static 'img/hero-percheros.jpg' %}" alt="" width="1920" height="1280" loading="lazy">
+</div>
+<div class="pub-mensajes">
+<div class="pub-hero-texto pub-mensaje es-activo">
+<h1>Cuidamos lo que más te gusta <span>vestir.</span></h1>
+<p>Limpieza en seco de cuero, gamuza y nobuk. Contanos qué prenda tenés y te decimos cómo la cuidamos, sin compromiso.</p>
+<div class="pub-hero-botones">
+<a class="pub-boton" href="{% url 'consultas:nueva' %}">Hacer una consulta</a>
+<a class="pub-boton pub-boton-borde" href="{% url 'servicios:catalogo' %}">Conocé nuestros servicios</a>
+</div>
+</div>
+<div class="pub-hero-texto pub-mensaje" aria-hidden="true">
+<h2>Cuero, gamuza y nobuk <span>como nuevos.</span></h2>
+<p>Limpieza en seco que cuida el material y devuelve el aspecto a tus camperas, botas y accesorios.</p>
+<div class="pub-hero-botones">
+<a class="pub-boton" href="{% url 'servicios:catalogo' %}" tabindex="-1">Ver servicios</a>
+<a class="pub-boton pub-boton-borde" href="{% url 'consultas:nueva' %}" tabindex="-1">Hacer una consulta</a>
+</div>
+</div>
+<div class="pub-hero-texto pub-mensaje" aria-hidden="true">
+<h2>Consultanos <span>sin compromiso.</span></h2>
+<p>Escribinos desde el formulario o por WhatsApp y te respondemos con el precio y el tratamiento para tu prenda.</p>
+<div class="pub-hero-botones">
+<a class="pub-boton" href="{% url 'consultas:nueva' %}" tabindex="-1">Hacer una consulta</a>
+<a class="pub-boton pub-boton-borde" href="#como-trabajamos" tabindex="-1">Cómo trabajamos</a>
+</div>
+</div>
+</div>
+<button type="button" class="pub-flecha pub-flecha-ant" aria-label="Foto anterior"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+<button type="button" class="pub-flecha pub-flecha-sig" aria-label="Foto siguiente"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+<div class="pub-puntos" role="group" aria-label="Elegir foto">
+<button type="button" class="es-activo" aria-label="Foto 1" aria-pressed="true"></button>
+<button type="button" aria-label="Foto 2" aria-pressed="false"></button>
+<button type="button" aria-label="Foto 3" aria-pressed="false"></button>
 </div>
 </section>
 
-<section class="pasos" aria-label="Cómo trabajamos">
-<div><span>1</span><h3>Consultanos</h3><p>Escribinos desde el formulario o por WhatsApp.</p></div>
-<div><span>2</span><h3>Traé tu prenda</h3><p>Acercala a nuestro local en Salta.</p></div>
-<div><span>3</span><h3>Retirala como nueva</h3><p>La limpiamos con el tratamiento adecuado.</p></div>
+<section class="pub-beneficios" aria-label="Por qué elegirnos">
+<div>
+<svg viewBox="0 0 32 32" width="34" height="34" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3.5s8 8.2 8 14a8 8 0 0 1-16 0c0-5.8 8-14 8-14z"/><path d="M12.5 19a3.6 3.6 0 0 0 3.5 3.5"/></svg>
+<p><strong>Limpieza en seco</strong>Para cuero, gamuza y nobuk</p>
+</div>
+<div>
+<svg viewBox="0 0 32 32" width="34" height="34" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 11a3.2 3.2 0 1 0-3.2-3.2"/><path d="M16 11v3M16 14 3.5 22.5a1.4 1.4 0 0 0 .8 2.5h23.4a1.4 1.4 0 0 0 .8-2.5z"/></svg>
+<p><strong>Cuidado especializado</strong>Para cada tipo de prenda</p>
+</div>
+<div>
+<svg viewBox="0 0 32 32" width="34" height="34" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 6h22a1.5 1.5 0 0 1 1.5 1.5v13A1.5 1.5 0 0 1 27 22H13l-6.5 5v-5H5a1.5 1.5 0 0 1-1.5-1.5v-13A1.5 1.5 0 0 1 5 6z"/><path d="M10 12h12M10 16h7"/></svg>
+<p><strong>Consultas sin compromiso</strong>Te respondemos por WhatsApp</p>
+</div>
+<div>
+<svg viewBox="0 0 32 32" width="34" height="34" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 14l6-5 5 2.5L18 9l6 1 5 4-6.5 8.5a2 2 0 0 1-3 .2l-1.7-1.7"/><path d="M8.5 9L2.5 14l7.5 9"/><path d="M13 20l2.5 2.5M16 17l3 3"/></svg>
+<p><strong>Atención personalizada</strong>Hablás directo con el dueño</p>
+</div>
 </section>
 
-<div id="catalogo"></div>
-{% if grupos %}
-{% for nombre, servicios in grupos %}
-<section class="categoria" aria-labelledby="cat-{{ forloop.counter }}">
-<h2 id="cat-{{ forloop.counter }}">{{ nombre }}</h2>
-<div class="rejilla">
-{% for s in servicios %}
-<article class="tarjeta-servicio">
-{% if s.imagen %}
-<img src="{{ s.imagen.url }}" alt="{{ s.nombre }}">
-{% else %}
-<div class="sin-imagen" aria-hidden="true">{{ s.nombre|slice:":1" }}</div>
-{% endif %}
-<div class="cuerpo">
-<h3>{{ s.nombre }}</h3>
-{% if s.descripcion %}
-<p>{{ s.descripcion }}</p>
-{% endif %}
-<strong class="numero">{% if s.precio > 0 %}$ {{ s.precio|floatformat:"-2g" }}{% else %}Consultar precio{% endif %}</strong>
+<section class="pub-materiales" aria-labelledby="titulo-materiales">
+<div class="pub-materiales-texto">
+<h2 id="titulo-materiales">Especialistas en el cuidado de tus prendas</h2>
+<p>Dejá tus prendas en manos de profesionales.</p>
+<a class="pub-boton" href="{% url 'servicios:catalogo' %}">Ver servicios</a>
 </div>
-</article>
-{% endfor %}
-</div>
+<ul class="pub-tarjetas">
+<li><a href="{% url 'servicios:catalogo' %}"><img src="{% static 'img/tarjeta-cuero.jpg' %}" alt="" loading="lazy"><span><svg viewBox="0 0 32 32" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4l-8 5 3 6 3-1.5V28h14V13.5L26 15l3-6-8-5c-1 2-2.7 3.2-5 3.2S12 6 11 4z"/></svg>Cuero</span></a></li>
+<li><a href="{% url 'servicios:catalogo' %}"><img src="{% static 'img/tarjeta-gamuza.jpg' %}" alt="" loading="lazy"><span><svg viewBox="0 0 32 32" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3v3M16 26v3M3 16h3M26 16h3M7 7l2 2M23 23l2 2M25 7l-2 2M9 23l-2 2"/><circle cx="16" cy="16" r="5"/></svg>Gamuza</span></a></li>
+<li><a href="{% url 'servicios:catalogo' %}"><img src="{% static 'img/tarjeta-nobuk.jpg' %}" alt="" loading="lazy"><span><svg viewBox="0 0 32 32" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 22c3-4 6-4 9 0s6 4 9 0 5-4 8-1"/><path d="M3 15c3-4 6-4 9 0s6 4 9 0 5-4 8-1"/><path d="M3 8c3-4 6-4 9 0s6 4 9 0 5-4 8-1"/></svg>Nobuk</span></a></li>
+<li><a href="{% url 'servicios:catalogo' %}"><img src="{% static 'img/tarjeta-general.jpg' %}" alt="" loading="lazy"><span><svg viewBox="0 0 32 32" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 11a3.2 3.2 0 1 0-3.2-3.2"/><path d="M16 11v3M16 14 3.5 22.5a1.4 1.4 0 0 0 .8 2.5h23.4a1.4 1.4 0 0 0 .8-2.5z"/></svg>Prendas en general</span></a></li>
+</ul>
 </section>
-{% endfor %}
-{% else %}
-<div class="vacio">
-<h2>Pronto vamos a publicar nuestros servicios</h2>
-<p>Todavía no hay servicios cargados.</p>
-</div>
-{% endif %}
+
+<section class="pub-pasos" id="como-trabajamos" aria-labelledby="titulo-pasos">
+<h2 id="titulo-pasos">Cómo trabajamos</h2>
+<ol>
+<li><span class="pub-num">1</span><h3>Consultanos</h3><p>Escribinos desde el formulario o por WhatsApp.</p></li>
+<li><span class="pub-num">2</span><h3>Traé tu prenda</h3><p>Acercala a nuestro local en Salta.</p></li>
+<li><span class="pub-num">3</span><h3>Retirala como nueva</h3><p>La limpiamos con el tratamiento adecuado.</p></li>
+</ol>
+</section>
+
+<div class="pub-banda"><p>Tu ropa, en las mejores manos</p></div>
 
 {% if negocio.direccion or negocio.horarios or negocio.telefono or negocio.whatsapp %}
-<section class="panel contacto" aria-labelledby="contacto">
-<h2 id="contacto">Dónde encontrarnos</h2>
+<section class="pub-contacto" id="contacto" aria-labelledby="titulo-contacto">
+<div class="pub-contacto-texto">
+<h2 id="titulo-contacto">Visitanos o escribinos.</h2>
+<div class="pub-contacto-botones">
+{% if negocio.whatsapp %}
+<a class="pub-boton pub-boton-claro" href="{{ negocio.enlace_whatsapp }}" target="_blank" rel="noopener">Escribinos por WhatsApp</a>
+{% endif %}
+{% if negocio.direccion %}
+<a class="pub-boton pub-boton-borde" href="https://www.google.com/maps/search/?api=1&amp;query={{ negocio.direccion|urlencode }}" target="_blank" rel="noopener">Cómo llegar</a>
+{% endif %}
+</div>
+</div>
 <dl>
 {% if negocio.direccion %}
 <div><dt>Dirección</dt><dd>{{ negocio.direccion }}</dd></div>
@@ -68,10 +127,51 @@ Servicios
 <div><dt>Teléfono</dt><dd>{{ negocio.telefono }}</dd></div>
 {% endif %}
 </dl>
-{% if negocio.whatsapp %}
-<a class="boton" href="{{ negocio.enlace_whatsapp }}" target="_blank" rel="noopener">Escribinos por WhatsApp</a>
-{% endif %}
 </section>
 {% endif %}
+
+
+<script>
+(function () {
+  var hero = document.querySelector('.pub-hero');
+  if (!hero) return;
+  var fotos = hero.querySelectorAll('.pub-slide');
+  var mensajes = hero.querySelectorAll('.pub-mensaje');
+  var puntos = hero.querySelectorAll('.pub-puntos button');
+  var actual = 0, reloj = null;
+  function ir(n) {
+    actual = (n + fotos.length) % fotos.length;
+    fotos.forEach(function (f, i) { f.classList.toggle('es-activo', i === actual); });
+    mensajes.forEach(function (m, i) {
+      m.classList.toggle('es-activo', i === actual);
+      m.setAttribute('aria-hidden', i === actual ? 'false' : 'true');
+      m.querySelectorAll('a').forEach(function (a) { a.tabIndex = i === actual ? 0 : -1; });
+    });
+    puntos.forEach(function (p, i) {
+      p.classList.toggle('es-activo', i === actual);
+      p.setAttribute('aria-pressed', i === actual ? 'true' : 'false');
+    });
+  }
+  function auto() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    clearInterval(reloj);
+    reloj = setInterval(function () { ir(actual + 1); }, 6500);
+  }
+  hero.querySelector('.pub-flecha-ant').addEventListener('click', function () { ir(actual - 1); auto(); });
+  hero.querySelector('.pub-flecha-sig').addEventListener('click', function () { ir(actual + 1); auto(); });
+  puntos.forEach(function (p, i) { p.addEventListener('click', function () { ir(i); auto(); }); });
+  var x0 = null;
+  hero.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, {passive:true});
+  hero.addEventListener('touchend', function (e) {
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0;
+    x0 = null;
+    if (Math.abs(dx) > 50) { ir(actual + (dx < 0 ? 1 : -1)); auto(); }
+  }, {passive:true});
+  auto();
+})();
+</script>
+
+
 
 {% endblock %}

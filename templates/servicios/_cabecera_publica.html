@@ -1,0 +1,21 @@
+{% load static %}
+<header class="pub-nav{% if solida %} pub-nav-solida{% endif %}">
+<a class="pub-marca" href="{% url 'servicios:publico' %}" aria-label="{{ organizacion_nombre }}, inicio">
+<img src="{% static 'img/logo-placa.png' %}" alt="{{ organizacion_nombre }}" height="60">
+</a>
+<nav class="pub-links" aria-label="Secciones">
+<a href="{% url 'servicios:catalogo' %}">Servicios</a>
+<a href="{% url 'servicios:publico' %}#como-trabajamos">Cómo trabajamos</a>
+{% if negocio.direccion or negocio.horarios or negocio.telefono or negocio.whatsapp %}
+<a href="{% url 'servicios:publico' %}#contacto">Contacto</a>
+{% endif %}
+</nav>
+<div class="pub-acciones">
+{% if user.is_authenticated %}
+<a class="pub-ingresar" href="{% url 'inicio:home' %}">Panel</a>
+{% else %}
+<a class="pub-ingresar" href="{% url 'cuentas:login' %}">Ingresar</a>
+{% endif %}
+<a class="pub-boton pub-boton-claro" href="{% url 'consultas:nueva' %}">Hacer una consulta</a>
+</div>
+</header>

@@ -14,10 +14,11 @@ class EjemplosTests(TestCase):
         self.assertGreater(n, 15)
         call_command("cargar_ejemplos")  # no duplica
         self.assertEqual(Servicio.objects.count(), n)
-        r = self.client.get(reverse("servicios:publico"))
+        r = self.client.get(reverse("servicios:catalogo"))
         self.assertContains(r, "Calzado y accesorios")
         self.assertContains(r, "Consultar precio")
-        self.assertContains(r, "Tu campera de cuero")
+        r = self.client.get(reverse("servicios:publico"))
+        self.assertContains(r, "Cuidamos lo que más te gusta")
 
 
 class ImagenesEjemploTests(TestCase):

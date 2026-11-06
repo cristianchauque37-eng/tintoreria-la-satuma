@@ -10,9 +10,11 @@ Inicio
 {% endblock %}
  · {{ organizacion_nombre }}</title>
 <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+{% block extra_head %}{% endblock %}
 </head>
-<body>
+<body class="{% block body_class %}{% endblock %}">
 <a class="skip" href="#contenido">Saltar al contenido</a>
+{% block cabecera %}
 <header class="cabecera">
 <a class="marca" href="{% url 'servicios:publico' %}">
 <span class="sello" aria-hidden="true">S</span>
@@ -73,8 +75,9 @@ aria-current="page"
 {% endif %}
 </nav>
 {% endif %}
+{% endblock %}
 
-<main id="contenido" tabindex="-1">
+<main id="contenido" class="{% block main_class %}{% endblock %}" tabindex="-1">
 {% for message in messages %}
 <div class="aviso" role="status">{{ message }}</div>
 {% endfor %}

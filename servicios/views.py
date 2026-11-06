@@ -11,7 +11,7 @@ from .models import Servicio
 
 
 class ServicioPublicoListView(ListView):
-    """HU06: cualquier visitante ve los servicios activos, sin iniciar sesión."""
+    """Portada pública: se ve sin iniciar sesión."""
 
     model = Servicio
     template_name = "servicios/publico.html"
@@ -29,6 +29,12 @@ class ServicioPublicoListView(ListView):
             if any(s.categoria == valor for s in servicios)
         ]
         return context
+
+
+class ServicioCatalogoView(ServicioPublicoListView):
+    """HU06: página con todos los servicios activos, por categoría."""
+
+    template_name = "servicios/catalogo.html"
 
 
 class ServicioGestionListView(SoloAdministradorMixin, ListView):

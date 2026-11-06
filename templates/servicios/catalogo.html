@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Nuestros servicios
+{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/publico.css' %}">
+{% endblock %}
+
+{% block body_class %}es-publico{% endblock %}
+{% block main_class %}pub-main{% endblock %}
+
+{% block cabecera %}
+{% include 'servicios/_cabecera_publica.html' with solida=True %}
+{% endblock %}
+
+{% block content %}
+<section class="pub-catalogo" aria-labelledby="titulo-servicios">
+<div class="pub-catalogo-cab">
+<h2 id="titulo-servicios">Nuestros servicios</h2>
+{% if grupos|length > 1 %}
+<div class="pub-filtros" role="group" aria-label="Filtrar por categoría" hidden>
+<button type="button" class="pub-chip" data-filtro="todos" aria-pressed="true">Todos</button>
+{% for nombre, servicios in grupos %}
+<button type="button" class="pub-chip" data-filtro="{{ nombre|slugify }}" aria-pressed="false">{{ nombre }}</button>
+{% endfor %}
+</div>
+{% endif %}
+</div>
+
+{% if grupos %}
+{% for nombre, servicios in grupos %}
+<section class="pub-cat" data-cat="{{ nombre|slugify }}" aria-labelledby="cat-{{ forloop.counter }}">
+<h3 id="cat-{{ forloop.counter }}">{{ nombre }}</h3>
+<div class="pub-rejilla">
+{% for s in servicios %}
+<article class="pub-servicio">
+<a class="pub-servicio-enlace" href="{% url 'consultas:nueva' %}?servicio={{ s.pk }}" aria-label="Consultar por {{ s.nombre }}">
+<div class="pub-servicio-imagen">
+{% if s.imagen %}
+<img src="{{ s.imagen.url }}" alt="{{ s.nombre }}" loading="lazy">
+{% else %}
+<span class="pub-sin-imagen" aria-hidden="true">{{ s.nombre|slice:":1" }}</span>
+{% endif %}
+<span class="pub-precio">{% if s.precio > 0 %}$ {{ s.precio|floatformat:"-2g" }}{% else %}Consultar precio{% endif %}</span>
+</div>
+<h4>{{ s.nombre }}</h4>
+{% if s.descripcion %}
+<p>{{ s.descripcion }}</p>
+{% endif %}
+<span class="pub-consultar">Consultar este servicio</span>
+</a>
+</article>
+{% endfor %}
+</div>
+</section>
+{% endfor %}
+{% else %}
+<div class="pub-vacio">
+<h3>Pronto vamos a publicar nuestros servicios</h3>
+<p>Todavía no hay servicios cargados.</p>
+</div>
+{% endif %}
+</section>
+
+
+<div class="pub-banda pub-banda-cta">
+<p>¿No encontrás lo que buscás? Consultanos</p>
+<a class="pub-boton pub-boton-claro" href="{% url 'consultas:nueva' %}">Hacer una consulta</a>
+</div>
+
+<script>
+(function () {
+  var barra = document.querySelector('.pub-filtros');
+  if (!barra) return;
+  barra.hidden = false;
+  var chips = barra.querySelectorAll('.pub-chip');
+  var secciones = document.querySelectorAll('.pub-cat');
+  chips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      var f = chip.getAttribute('data-filtro');
+      chips.forEach(function (c) { c.setAttribute('aria-pressed', c === chip ? 'true' : 'false'); });
+      secciones.forEach(function (s) {
+        s.hidden = !(f === 'todos' || s.getAttribute('data-cat') === f);
+      });
+    });
+  });
+})();
+</script>
+
+{% endblock %}
