@@ -19,6 +19,12 @@ Django · PostgreSQL · Docker · Scrum
 
 `servicios` · `consultas` · `negocio` · `cuentas` · `inicio`
 
+## Datos de ejemplo
+
+Para cargar los servicios de ejemplo, con el proyecto levantado:
+
+    docker compose exec web python manage.py loaddata datos_ejemplo.json
+
 ## Nota
 
 Los servicios, precios y fotos son datos de ejemplo. Se usó IA (Claude) como apoyo en el desarrollo.
