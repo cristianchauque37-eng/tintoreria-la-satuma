@@ -10,6 +10,7 @@ Inicio
 {% endblock %}
  · {{ organizacion_nombre }}</title>
 <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+<link rel="stylesheet" href="{% static 'css/panel.css' %}">
 {% block extra_head %}{% endblock %}
 </head>
 <body class="{% block body_class %}{% endblock %}">
@@ -17,8 +18,8 @@ Inicio
 {% block cabecera %}
 <header class="cabecera">
 <a class="marca" href="{% url 'servicios:publico' %}">
-<span class="sello" aria-hidden="true">S</span>
-<span>{{ organizacion_nombre }}<small>Gestión de consultas y servicios</small>
+<img src="{% static 'img/logo-placa.png' %}" alt="{{ organizacion_nombre }}">
+<span>{% if user.is_authenticated %}Panel de administración{% else %}{{ organizacion_nombre }}{% endif %}<small>Gestión de consultas y servicios</small>
 </span>
 </a>
 

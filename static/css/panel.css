@@ -1,0 +1,77 @@
+/* Panel de administración: misma identidad que la página pública.
+   Todo está acotado a body:not(.es-publico) para no tocar la portada ni el catálogo. */
+@font-face{font-family:"Bricolage Grotesque";src:url("../fonts/bricolage-grotesque.woff2") format("woff2");font-weight:200 800;font-stretch:75% 100%;font-display:swap}
+@font-face{font-family:"Figtree";src:url("../fonts/figtree.woff2") format("woff2");font-weight:300 900;font-display:swap}
+
+body:not(.es-publico){
+  --marca:#c62f26;--marca-oscura:#9a1f18;
+  --borgona:#5c1a1b;--gamuza:#d9a066;--fondo:#f6f5f3;--texto:#1c1716;--suave:#5f5653;--borde:#e2dcd8;
+  font-family:"Figtree",system-ui,sans-serif;
+  background:var(--fondo);
+}
+body:not(.es-publico) h1,
+body:not(.es-publico) h2{
+  font-family:"Bricolage Grotesque",system-ui,sans-serif;
+  font-weight:800;font-stretch:88%;letter-spacing:-.01em;color:var(--texto);
+}
+body:not(.es-publico) h1{letter-spacing:-.015em}
+
+/* Cabecera oscura con el logo */
+body:not(.es-publico) .cabecera{background:var(--borgona);border-bottom:0;color:#fff;padding-top:14px;padding-bottom:14px}
+body:not(.es-publico) .cabecera .marca{color:#fff;gap:16px}
+body:not(.es-publico) .cabecera .marca img{height:54px;width:auto;display:block;border-radius:3px}
+body:not(.es-publico) .cabecera .marca small,
+body:not(.es-publico) .cabecera .sesion small{color:#d9c8c3}
+body:not(.es-publico) .cabecera .sesion{color:#fff}
+body:not(.es-publico) .cabecera .sesion a{color:#fff}
+body:not(.es-publico) .cabecera .secundario{background:transparent;color:#fff;border-color:rgba(255,255,255,.45)}
+body:not(.es-publico) .cabecera .secundario:hover{background:#fff;color:var(--borgona)}
+
+/* Navegación */
+body:not(.es-publico) .navegacion{border-bottom:0;max-width:none;margin:0;padding:0 max(24px,calc((100vw - 1120px)/2));background:#fff;box-shadow:0 1px 0 var(--borde)}
+body:not(.es-publico) .navegacion a{color:var(--texto);border-bottom-width:4px}
+body:not(.es-publico) .navegacion a:hover{color:var(--marca)}
+body:not(.es-publico) .navegacion a[aria-current]{color:var(--marca);border-bottom-color:var(--marca)}
+
+/* Títulos y textos */
+body:not(.es-publico) .antetitulo{color:var(--marca)}
+body:not(.es-publico) .encabezado h2{font-size:26px}
+
+/* Resumen: tarjetas de color */
+body:not(.es-publico) .resumen{background:transparent;padding:0;gap:16px;margin:30px 0 48px}
+body:not(.es-publico) .resumen a{border-radius:12px;padding:22px 24px;background:#fff;color:var(--texto);border:1px solid var(--borde);border-top:5px solid var(--gamuza);transition:transform .15s}
+body:not(.es-publico) .resumen a:hover{transform:translateY(-2px)}
+body:not(.es-publico) .resumen a:nth-child(1){background:var(--borgona);color:#fff;border-color:var(--borgona);border-top-color:var(--gamuza)}
+body:not(.es-publico) .resumen a:nth-child(2){background:var(--marca);color:#fff;border-color:var(--marca);border-top-color:var(--gamuza)}
+body:not(.es-publico) .resumen a:nth-child(3){border-top-color:var(--marca)}
+body:not(.es-publico) .resumen span{font-size:14px;font-weight:600}
+body:not(.es-publico) .resumen strong{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:48px;line-height:1.1}
+
+/* Listas, paneles y tablas */
+body:not(.es-publico) .lista-recientes{border-top:2px solid var(--borgona)}
+body:not(.es-publico) .lista-recientes>a:hover{background:#fbeeea}
+body:not(.es-publico) .panel{border-top:4px solid var(--marca);box-shadow:0 1px 2px rgba(30,12,11,.05)}
+body:not(.es-publico) .tabla-scroll{border-color:var(--borde);border-top:3px solid var(--borgona)}
+body:not(.es-publico) th{background:var(--borgona);color:#fff;font-weight:650}
+body:not(.es-publico) tbody tr:hover td{background:#fbf3f0}
+body:not(.es-publico) .aviso{background:#fbeeea;border-left-color:var(--marca);color:var(--marca-oscura)}
+body:not(.es-publico) .vacio{border-color:var(--gamuza);background:#fff}
+body:not(.es-publico) .boton:not(.secundario),
+body:not(.es-publico) main button:not(.secundario):not(.peligro){background:var(--marca)}
+body:not(.es-publico) .boton:not(.secundario):hover,
+body:not(.es-publico) main button:not(.secundario):not(.peligro):hover{background:var(--borgona)}
+body:not(.es-publico) input:not([type=hidden]):focus,body:not(.es-publico) select:focus,body:not(.es-publico) textarea:focus{border-color:var(--marca);outline:2px solid rgba(198,47,38,.25);outline-offset:0}
+
+/* Pie oscuro */
+body:not(.es-publico) footer{max-width:none;margin:0;border-top:0;background:var(--borgona);color:#c9b9b4;padding:26px max(24px,calc((100vw - 1120px)/2))}
+
+/* Acceso (login) */
+body:not(.es-publico) .introduccion h1{font-size:clamp(40px,5vw,64px);line-height:1.05}
+body:not(.es-publico) .acceso .panel{border-top-color:var(--gamuza)}
+
+@media(max-width:760px){
+  body:not(.es-publico) .cabecera .marca img{height:44px}
+  body:not(.es-publico) .navegacion{padding:0 20px}
+  body:not(.es-publico) .resumen a{padding:16px}
+  body:not(.es-publico) .resumen strong{font-size:38px}
+}
