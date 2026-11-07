@@ -1,0 +1,335 @@
+[
+{
+  "model": "servicios.servicio",
+  "pk": 2,
+  "fields": {
+    "nombre": "Campera de cuero",
+    "categoria": "tintoreria",
+    "descripcion": "Limpieza en seco, hidratación y acabado del cuero.",
+    "precio": "15000.00",
+    "imagen": "servicios/cuero_6GtEUop.jpg",
+    "activo": true,
+    "creado_por": 1,
+    "actualizado_por": 1,
+    "creado": "2026-11-04T18:44:55.426Z",
+    "actualizado": "2026-11-04T18:49:28.917Z"
+  }
+},
+{
+  "model": "servicios.servicio",
+  "pk": 3,
+  "fields": {
+    "nombre": "Campera de gamuza",
+    "categoria": "tintoreria",
+    "descripcion": "Limpieza especial y cepillado para recuperar el pelo.",
+    "precio": "16000.00",
+    "imagen": "servicios/02-campera-de-gamuza.jpg",
+    "activo": true,
+    "creado_por": 1,
+    "actualizado_por": 1,
+    "creado": "2026-11-04T18:44:55.433Z",
+    "actualizado": "2026-11-04T22:12:11.249Z"
+  }
+},
+{
+  "model": "servicios.servicio",
+  "pk": 4,
+  "fields": {
+    "nombre": "Campera de nobuk",
+    "categoria": "tintoreria",
+    "descripcion": "Limpieza en seco y protección del nobuk.",
+    "precio": "16000.00",
+    "imagen": "servicios/03-campera-de-nobuk.jpg",
+    "activo": true,
+    "creado_por": 1,
+    "actualizado_por": 1,
+    "creado": "2026-11-04T18:44:55.438Z",
+    "actualizado": "2026-11-04T22:12:11.315Z"
+  }
+},
+{
+  "model": "servicios.servicio",
+  "pk": 5,
+  "fields": {
+    "nombre": "Chaleco de cuero",
+    "categoria": "tintoreria",
+    "descripcion": "Limpieza en seco y tratamiento del cuero.",
+    "precio": "11000.00",
+    "imagen": "servicios/04-chaleco-de-cuero.jpg",
+    "activo": true,
+    "creado_por": 1,
+    "actualizado_por": 1,
+    "creado": "2026-11-04T18:44:55.442Z",
+    "actualizado": "2026-11-04T22:12:11.373Z"
+  }
+},
+{
+  "model": "servicios.servicio",
+  "pk": 6,
+  "fields": {
+    "nombre": "Pantalón de cuero",
+    "categoria": "tintoreria",
+    "descripcion": "Limpieza en seco e hidratación, con cuidado de las costuras.",
+    "precio": "13000.00",
+    "imagen": "servicios/05-pantalon-de-cuero.jpg",
+    "activo": true,
+    "creado_por": 1,
+    "actualizado_por": 1,
+    "creado": "2026-11-04T18:44:55.446Z",
+    "actualizado": "2026-11-04T22:12:11.432Z"
+  }
+},
+{
+  "model": "servicios.servicio",
+  "pk": 7,
+  "fields": {
+    "nombre": "Tapado o abrigo (sin piel)",
+    "categoria": "tintoreria",
+    "descripcion": "Limpieza en seco y planchado profesional.",
+    "precio": "12000.00",
+    "imagen": "servicios/06-tapado-o-abrigo.jpg",
+    "activo": true,
+    "creado_por": 1,
+    "actualizado_por": 1,
+    "creado": "2026-11-04T18:44:55.450Z",
+    "actualizado": "2026-11-04T22:12:11.498Z"
+  }
+},
+{
+  "model": "servicios.servicio",
+  "pk": 8,
+  "fields": {
+    "nombre": "Botas de gamuza",
+    "categoria": "calzado",
+    "descripcion": "Limpieza y reavivado del pelo de la gamuza.",
+    "precio": "9000.00",
+    "imagen": "servicios/07-botas-de-gamuza.jpg",
+    "activo": true,
+    "creado_por": 1,
+    "actualizado_por": 1,
+    "creado": "2026-11-04T18:44:55.454Z",
+    "actualizado": "2026-11-04T22:12:11.568Z"
+  }
+},
+{
+  "model": "servicios.servicio",
+  "pk": 9,
+  "fields": {
+    "nombre": "Zapatos de nobuk",
+    "categoria": "calzado",
+    "descripcion": "Limpieza en seco y protección contra manchas.",
+    "precio": "8000.00",
+    "imagen": "servicios/10-zapatos-de-nobuk.jpg",
+    "activo": true,
+    "creado_por": 1,
+    "actualizado_por": 1,
+    "creado": "2026-11-04T18:44:55.458Z",
+    "actualizado": "2026-11-04T22:12:11.761Z"
+  }
+},
+{
+  "model": "servicios.servicio",
+  "pk": 10,
+  "fields": {
+    "nombre": "Cartera o bolso de cuero",
+    "categoria": "calzado",
+    "descripcion": "Limpieza, hidratación y renovación del color.",
+    "precio": "10000.00",
+    "imagen": "servicios/08-cartera-o-bolso-de-cuero.jpg",
+    "activo": true,
+    "creado_por": 1,
+    "actualizado_por": 1,
+    "creado": "2026-11-04T18:44:55.461Z",
+    "actualizado": "2026-11-04T22:12:11.639Z"
+  }
+},
+{
+  "model": "servicios.servicio",
+  "pk": 11,
+  "fields": {
+    "nombre": "Cinturón de cuero",
+    "categoria": "calzado",
+    "descripcion": "Limpieza y acabado.",
+    "precio": "4000.00",
+    "imagen": "servicios/09-cinturon-de-cuero.jpg",
+    "activo": true,
+    "creado_por": 1,
+    "actualizado_por": 1,
+    "creado": "2026-11-04T18:44:55.465Z",
+    "actualizado": "2026-11-04T22:12:11.701Z"
+  }
+},
+{
+  "model": "servicios.servicio",
+  "pk": 12,
+  "fields": {
+    "nombre": "Ropa de cama y sábanas",
+    "categoria": "lavanderia",
+    "descripcion": "Lavado, secado y doblado cuidadoso.",
+    "precio": "7000.00",
+    "imagen": "servicios/14-ropa-de-cama-y-sabanas.jpg",
+    "activo": true,
+    "creado_por": 1,
+    "actualizado_por": 1,
+    "creado": "2026-11-04T18:44:55.469Z",
+    "actualizado": "2026-11-04T22:12:12.008Z"
+  }
+},
+{
+  "model": "servicios.servicio",
+  "pk": 13,
+  "fields": {
+    "nombre": "Edredón",
+    "categoria": "lavanderia",
+    "descripcion": "Lavado especial y secado completo.",
+    "precio": "12000.00",
+    "imagen": "servicios/12-edredon.jpg",
+    "activo": true,
+    "creado_por": 1,
+    "actualizado_por": 1,
+    "creado": "2026-11-04T18:44:55.472Z",
+    "actualizado": "2026-11-04T22:12:11.886Z"
+  }
+},
+{
+  "model": "servicios.servicio",
+  "pk": 14,
+  "fields": {
+    "nombre": "Manta o cubrecama",
+    "categoria": "lavanderia",
+    "descripcion": "Lavado, secado y doblado.",
+    "precio": "9000.00",
+    "imagen": "servicios/13-manta-o-cubrecama.jpg",
+    "activo": true,
+    "creado_por": 1,
+    "actualizado_por": 1,
+    "creado": "2026-11-04T18:44:55.476Z",
+    "actualizado": "2026-11-04T22:12:11.947Z"
+  }
+},
+{
+  "model": "servicios.servicio",
+  "pk": 15,
+  "fields": {
+    "nombre": "Cortinas",
+    "categoria": "lavanderia",
+    "descripcion": "Lavado y planchado. Consultar según el tamaño.",
+    "precio": "0.00",
+    "imagen": "servicios/11-cortinas.jpg",
+    "activo": true,
+    "creado_por": 1,
+    "actualizado_por": 1,
+    "creado": "2026-11-04T18:44:55.479Z",
+    "actualizado": "2026-11-04T22:12:11.826Z"
+  }
+},
+{
+  "model": "servicios.servicio",
+  "pk": 16,
+  "fields": {
+    "nombre": "Combo 2 camperas",
+    "categoria": "ofertas",
+    "descripcion": "Traé 2 camperas de cuero y obtené un descuento.",
+    "precio": "27000.00",
+    "imagen": "servicios/15-combo-2-camperas.jpg",
+    "activo": true,
+    "creado_por": 1,
+    "actualizado_por": 1,
+    "creado": "2026-11-04T18:44:55.483Z",
+    "actualizado": "2026-11-04T22:12:12.076Z"
+  }
+},
+{
+  "model": "servicios.servicio",
+  "pk": 17,
+  "fields": {
+    "nombre": "Combo campera + cartera",
+    "categoria": "ofertas",
+    "descripcion": "Limpieza de una campera y una cartera de cuero a precio especial.",
+    "precio": "22000.00",
+    "imagen": "servicios/16-combo-campera-cartera.jpg",
+    "activo": true,
+    "creado_por": 1,
+    "actualizado_por": 1,
+    "creado": "2026-11-04T18:44:55.486Z",
+    "actualizado": "2026-11-04T22:12:12.147Z"
+  }
+},
+{
+  "model": "servicios.servicio",
+  "pk": 18,
+  "fields": {
+    "nombre": "Descuento por 3 prendas",
+    "categoria": "ofertas",
+    "descripcion": "Traé 3 prendas de cualquier categoría y pagá menos.",
+    "precio": "0.00",
+    "imagen": "servicios/17-descuento-por-3-prendas.jpg",
+    "activo": true,
+    "creado_por": 1,
+    "actualizado_por": 1,
+    "creado": "2026-11-04T18:44:55.490Z",
+    "actualizado": "2026-11-04T22:12:12.214Z"
+  }
+},
+{
+  "model": "servicios.servicio",
+  "pk": 19,
+  "fields": {
+    "nombre": "Eliminación de manchas",
+    "categoria": "otros",
+    "descripcion": "Evaluamos la mancha sin cargo. El precio depende del caso.",
+    "precio": "0.00",
+    "imagen": "servicios/19-eliminacion-de-manchas.jpg",
+    "activo": true,
+    "creado_por": 1,
+    "actualizado_por": 1,
+    "creado": "2026-11-04T18:44:55.493Z",
+    "actualizado": "2026-11-04T22:12:12.346Z"
+  }
+},
+{
+  "model": "servicios.servicio",
+  "pk": 20,
+  "fields": {
+    "nombre": "Desodorizado de prendas",
+    "categoria": "otros",
+    "descripcion": "Tratamiento para eliminar olores en cuero y gamuza.",
+    "precio": "5000.00",
+    "imagen": "servicios/Vapor_sobre_chaqueta_de_gamuza.png",
+    "activo": true,
+    "creado_por": 1,
+    "actualizado_por": 1,
+    "creado": "2026-11-04T18:44:55.497Z",
+    "actualizado": "2026-11-06T23:37:44.474Z"
+  }
+},
+{
+  "model": "servicios.servicio",
+  "pk": 21,
+  "fields": {
+    "nombre": "Impermeabilización",
+    "categoria": "otros",
+    "descripcion": "Protección contra agua y manchas para cuero y gamuza.",
+    "precio": "6000.00",
+    "imagen": "servicios/20-impermeabilizacion.jpg",
+    "activo": true,
+    "creado_por": 1,
+    "actualizado_por": 1,
+    "creado": "2026-11-04T18:44:55.501Z",
+    "actualizado": "2026-11-04T22:12:12.421Z"
+  }
+},
+{
+  "model": "negocio.negocio",
+  "pk": 1,
+  "fields": {
+    "nombre_comercial": "Tintorería La Satuma",
+    "direccion": "General Rudecindo Alvarado 956, Salta",
+    "horarios": "Lun a Jue 9-13 y 17-21; Vie 9-13 y 17-20:30",
+    "telefono": "3874215609",
+    "whatsapp": "5492974127864",
+    "administrador": 1,
+    "actualizado": "2026-11-04T16:58:38.592Z"
+  }
+}
+]
