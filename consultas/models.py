@@ -1,5 +1,6 @@
 from urllib.parse import quote
 
+from django.conf import settings
 from django.db import models
 
 
@@ -22,6 +23,15 @@ class Consulta(models.Model):
     )
     estado = models.CharField(
         max_length=12, choices=Estado.choices, default=Estado.PENDIENTE
+    )
+    administrador = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+        editable=False,
+        related_name="consultas_revisadas",
+        verbose_name="revisada por",
     )
     creado = models.DateTimeField(auto_now_add=True)
 

@@ -35,6 +35,7 @@ class ConsultaTests(TestCase):
         self.assertEqual(c.estado, "pendiente")
         self.assertEqual(c.servicio, self.servicio)
         self.assertIsNotNone(c.creado)
+        self.assertIsNone(c.administrador)
 
     def test_sin_contacto_no_se_guarda(self):
         r = self.client.post(reverse("consultas:nueva"), self.datos(telefono=""))
@@ -101,6 +102,53 @@ class GestionConsultasTests(TestCase):
         self.client.force_login(self.admin)
         r = self.client.get(reverse("consultas:gestion") + "?estado=archivada")
         self.assertNotContains(r, "Luis")
+
+    def test_cambiar_estado_registra_al_administrador(self):
+        self.assertIsNone(self.consulta.administrador)
+        self.client.force_login(self.admin)
+        self.client.post(
+            reverse("consultas:estado", args=[self.consulta.pk]),
+            {"estado": "respondida"},
+        )
+        self.consulta.refresh_from_db()
+        self.assertEqual(self.consulta.administrador, self.admin)
+
+    def test_queda_registrado_el_ultimo_administrador_que_la_reviso(self):
+        otro = get_user_model().objects.create_superuser(
+            "otro", "otro@example.test", "x12345678abc"
+        )
+        url = reverse("consultas:estado", args=[self.consulta.pk])
+        self.client.force_login(self.admin)
+        self.client.post(url, {"estado": "respondida"})
+        self.client.force_login(otro)
+        self.client.post(url, {"estado": "archivada"})
+        self.consulta.refresh_from_db()
+        self.assertEqual(self.consulta.estado, "archivada")
+        self.assertEqual(self.consulta.administrador, otro)
+
+    def test_estado_invalido_no_registra_administrador(self):
+        self.client.force_login(self.admin)
+        self.client.post(
+            reverse("consultas:estado", args=[self.consulta.pk]), {"estado": "xx"}
+        )
+        self.consulta.refresh_from_db()
+        self.assertIsNone(self.consulta.administrador)
+
+    def test_la_lista_muestra_quien_reviso_la_consulta(self):
+        self.consulta.administrador = self.admin
+        self.consulta.save()
+        self.client.force_login(self.admin)
+        r = self.client.get(reverse("consultas:gestion"))
+        self.assertContains(r, "Revisó jefe")
+
+    def test_visitante_no_puede_cambiar_el_estado(self):
+        self.client.post(
+            reverse("consultas:estado", args=[self.consulta.pk]),
+            {"estado": "respondida"},
+        )
+        self.consulta.refresh_from_db()
+        self.assertEqual(self.consulta.estado, "pendiente")
+        self.assertIsNone(self.consulta.administrador)
 
 
 class ReporteTests(TestCase):

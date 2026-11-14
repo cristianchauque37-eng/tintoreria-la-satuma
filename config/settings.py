@@ -1,6 +1,7 @@
 """Configuración común: las diferencias de cada equipo viven en variables de entorno."""
 
 import os
+import sys
 from pathlib import Path
 from django.core.exceptions import ImproperlyConfigured
 
@@ -30,7 +31,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "cuentas",
-    "catalogo",
     "servicios",
     "consultas",
     "negocio",
@@ -121,6 +121,13 @@ if not DEBUG:
     SECURE_HSTS_SECONDS = 31536000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
+# Con `manage.py test`: Django fuerza DEBUG=False y el almacenamiento con manifiesto
+# exige la carpeta staticfiles (collectstatic), que el volumen `.:/app` oculta en Docker.
+if len(sys.argv) > 1 and sys.argv[1] == "test":
+    STORAGES["staticfiles"] = {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"
+    }
+    SECURE_SSL_REDIRECT = False
 # No hay dependencia de correo: la recuperación automática es una ampliación futura.
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 

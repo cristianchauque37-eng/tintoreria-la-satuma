@@ -53,7 +53,10 @@ Consultas
 <small>{{ c.mensaje|truncatechars:120 }}</small>
 </td>
 <td>{% if c.servicio %}{{ c.servicio.nombre }}{% else %}—{% endif %}</td>
-<td>{{ c.get_estado_display }}</td>
+<td>
+{{ c.get_estado_display }}
+{% if c.administrador %}<small>Revisó {{ c.administrador.get_full_name|default:c.administrador.username }}</small>{% endif %}
+</td>
 <td>
 <form method="post" action="{% url 'consultas:estado' c.pk %}" class="acciones">{% csrf_token %}
 <select name="estado" aria-label="Nuevo estado de la consulta de {{ c.nombre }}">

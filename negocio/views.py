@@ -1,6 +1,6 @@
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView
-from catalogo.views import GuardadoSeguroMixin, SoloAdministradorMixin
+from cuentas.mixins import GuardadoSeguroMixin, SoloAdministradorMixin
 from .forms import NegocioForm
 from .models import Negocio
 

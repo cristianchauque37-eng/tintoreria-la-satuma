@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView, ListView, UpdateView
-from catalogo.views import GuardadoSeguroMixin, SoloAdministradorMixin
+from cuentas.mixins import GuardadoSeguroMixin, SoloAdministradorMixin
 from negocio.models import Negocio
 from .forms import ServicioForm
 from .models import Servicio

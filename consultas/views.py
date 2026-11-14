@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.views import View
 from django.views.generic import CreateView, ListView, TemplateView
 
-from catalogo.views import SoloAdministradorMixin
+from cuentas.mixins import SoloAdministradorMixin
 from negocio.models import Negocio
 
 from .forms import ConsultaForm, ReporteForm
@@ -58,7 +58,7 @@ class ConsultaGestionListView(SoloAdministradorMixin, ListView):
     paginate_by = 15
 
     def get_queryset(self):
-        qs = super().get_queryset().select_related("servicio")
+        qs = super().get_queryset().select_related("servicio", "administrador")
         estado = self.request.GET.get("estado", "")
         if estado in Consulta.Estado.values:
             qs = qs.filter(estado=estado)
@@ -75,7 +75,7 @@ class ConsultaGestionListView(SoloAdministradorMixin, ListView):
 
 
 class ConsultaCambiarEstadoView(SoloAdministradorMixin, View):
-    """HU12: pendiente, respondida o archivada."""
+    """HU12: pendiente, respondida o archivada. Guarda qué administrador la revisó."""
 
     http_method_names = ["post"]
 
@@ -84,7 +84,8 @@ class ConsultaCambiarEstadoView(SoloAdministradorMixin, View):
         estado = request.POST.get("estado")
         if estado in Consulta.Estado.values:
             consulta.estado = estado
-            consulta.save(update_fields=["estado"])
+            consulta.administrador = request.user
+            consulta.save(update_fields=["estado", "administrador"])
             messages.success(
                 request, f"Consulta marcada como {consulta.get_estado_display().lower()}."
             )
