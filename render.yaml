@@ -1,0 +1,48 @@
+# Despliegue gratuito en Render (Blueprint). Ver README: "Publicar en Render".
+databases:
+  - name: la-satuma-db
+    plan: free
+    databaseName: satuma
+    user: satuma
+
+services:
+  - type: web
+    name: tintoreria-la-satuma
+    runtime: docker
+    plan: free
+    dockerCommand: sh scripts/render_inicio.sh
+    envVars:
+      - key: DJANGO_DEBUG
+        value: "False"
+      - key: SITE_NAME
+        value: Tintorería La Satuma
+      - key: DJANGO_SECRET_A
+        generateValue: true
+      - key: DJANGO_SECRET_B
+        generateValue: true
+      - key: DJANGO_SUPERUSER_USERNAME
+        value: admin
+      - key: DJANGO_SUPERUSER_EMAIL
+        value: admin@lasatuma.com
+      - key: DJANGO_SUPERUSER_PASSWORD
+        sync: false
+      - key: POSTGRES_DB
+        fromDatabase:
+          name: la-satuma-db
+          property: database
+      - key: POSTGRES_USER
+        fromDatabase:
+          name: la-satuma-db
+          property: user
+      - key: POSTGRES_PASSWORD
+        fromDatabase:
+          name: la-satuma-db
+          property: password
+      - key: DB_HOST
+        fromDatabase:
+          name: la-satuma-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: la-satuma-db
+          property: port
