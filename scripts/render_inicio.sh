@@ -9,12 +9,23 @@ export DJANGO_CSRF_TRUSTED_ORIGINS="https://${RENDER_EXTERNAL_HOSTNAME}"
 
 python manage.py migrate --noinput
 
-# Crea el administrador la primera vez (usuario y clave vienen de las variables de entorno).
+# Crea (o actualiza) el administrador en cada arranque con la clave de la variable de entorno.
 python manage.py shell -c "
-import sys
+import os
 from django.contrib.auth import get_user_model
-sys.exit(0 if get_user_model().objects.filter(is_superuser=True).exists() else 1)
-" || python manage.py createsuperuser --noinput
+U = get_user_model()
+nombre = os.environ['DJANGO_SUPERUSER_USERNAME']
+clave = os.environ.get('DJANGO_SUPERUSER_PASSWORD')
+if clave:
+    u, _ = U.objects.get_or_create(username=nombre, defaults={'email': os.environ.get('DJANGO_SUPERUSER_EMAIL', '')})
+    u.is_staff = True
+    u.is_superuser = True
+    u.set_password(clave)
+    u.save()
+    print('Administrador listo:', nombre)
+else:
+    print('FALTA DJANGO_SUPERUSER_PASSWORD')
+"
 
 # Carga los servicios de ejemplo y sus fotos solo si la base está vacía.
 python manage.py shell -c "
