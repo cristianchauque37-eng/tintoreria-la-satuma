@@ -34,7 +34,7 @@ class ConsultaTests(TestCase):
         c = Consulta.objects.get()
         self.assertEqual(c.estado, "pendiente")
         self.assertEqual(c.servicio, self.servicio)
-        self.assertIsNotNone(c.creado)
+        self.assertIsNotNone(c.fecha_hora)
         self.assertIsNone(c.administrador)
 
     def test_sin_contacto_no_se_guarda(self):

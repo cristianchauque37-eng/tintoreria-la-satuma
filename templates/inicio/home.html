@@ -40,7 +40,7 @@ Inicio
 <a href="{% url 'consultas:gestion' %}">
 <span>
 <strong>{{ c.nombre }}</strong>
-<small>{% if c.servicio %}{{ c.servicio.nombre }}{% else %}Sin servicio{% endif %} · {{ c.creado|date:"d/m/Y H:i" }}</small>
+<small>{% if c.servicio %}{{ c.servicio.nombre }}{% else %}Sin servicio{% endif %} · {{ c.fecha_hora|date:"d/m/Y H:i" }}</small>
 </span>
 <span>{{ c.get_estado_display }}</span>
 </a>{% empty %}<div class="vacio">

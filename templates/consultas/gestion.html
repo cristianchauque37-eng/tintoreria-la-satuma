@@ -46,7 +46,7 @@ Consultas
 <tbody>
 {% for c in object_list %}
 <tr>
-<td>{{ c.creado|date:"d/m/Y H:i" }}</td>
+<td>{{ c.fecha_hora|date:"d/m/Y H:i" }}</td>
 <td>
 <strong>{{ c.nombre }}</strong>
 <small>{% if c.telefono %}{{ c.telefono }}{% endif %}{% if c.telefono and c.email %} · {% endif %}{% if c.email %}{{ c.email }}{% endif %}</small>

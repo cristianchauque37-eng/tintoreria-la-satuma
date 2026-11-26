@@ -109,7 +109,7 @@ class ReporteConsultasView(SoloAdministradorMixin, TemplateView):
         if self.request.GET and form.is_valid():
             datos = form.cleaned_data
             qs = Consulta.objects.filter(
-                creado__date__gte=datos["desde"], creado__date__lte=datos["hasta"]
+                fecha_hora__date__gte=datos["desde"], fecha_hora__date__lte=datos["hasta"]
             )
             if datos["estado"]:
                 qs = qs.filter(estado=datos["estado"])

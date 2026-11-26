@@ -11,7 +11,7 @@ class Consulta(models.Model):
         ARCHIVADA = "archivada", "Archivada"
 
     nombre = models.CharField(max_length=100)
-    email = models.EmailField("correo electrónico", blank=True)
+    email = models.EmailField("correo electrónico", max_length=100, blank=True)
     telefono = models.CharField("teléfono", max_length=20, blank=True)
     mensaje = models.TextField(max_length=1000)
     servicio = models.ForeignKey(
@@ -33,13 +33,13 @@ class Consulta(models.Model):
         related_name="consultas_revisadas",
         verbose_name="revisada por",
     )
-    creado = models.DateTimeField(auto_now_add=True)
+    fecha_hora = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ["-creado"]
+        ordering = ["-fecha_hora"]
 
     def __str__(self):
-        return f"{self.nombre} ({self.creado:%d/%m/%Y %H:%M})"
+        return f"{self.nombre} ({self.fecha_hora:%d/%m/%Y %H:%M})"
 
     def texto_whatsapp(self):
         partes = [f"Hola, soy {self.nombre}."]

@@ -12,13 +12,13 @@ class Servicio(models.Model):
         OFERTAS = "ofertas", "Ofertas"
         OTROS = "otros", "Otros servicios"
 
-    nombre = models.CharField(max_length=120)
+    nombre = models.CharField(max_length=100)
     categoria = models.CharField(
         max_length=12, choices=Categoria.choices, default=Categoria.TINTORERIA
     )
     descripcion = models.TextField("descripción", blank=True, max_length=2000)
     precio = models.DecimalField(
-        max_digits=12, decimal_places=2, validators=[MinValueValidator(0)]
+        max_digits=10, decimal_places=2, validators=[MinValueValidator(0)]
     )
     imagen = models.ImageField(
         "imagen", upload_to="servicios/", blank=True, null=True,
