@@ -67,11 +67,6 @@ aria-current="page"
 aria-current="page"
 {% endif %}
 >Datos del negocio</a>
-<a href="{% url 'cuentas:solicitudes' %}"
-{% if request.resolver_match.app_name == 'cuentas' %}
-aria-current="page"
-{% endif %}
->Solicitudes de acceso</a>
 <a href="{% url 'admin:index' %}">Administración</a>
 {% endif %}
 </nav>

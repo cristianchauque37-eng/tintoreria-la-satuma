@@ -9,7 +9,7 @@ Proyecto de **Práctica Profesional II** · Tecnicatura Superior en Análisis de
 ## Qué incluye
 
 - **Página pública:** portada, catálogo de servicios por categoría, formulario de consulta, WhatsApp y mapa.
-- **Panel de administración:** servicios y categorías, consultas con su estado, datos del negocio y solicitudes de acceso.
+- **Panel de administración:** servicios y categorías, consultas con su estado y datos del negocio.
 
 ## Tecnologías
 

@@ -3,7 +3,6 @@ from django.http import JsonResponse
 from django.shortcuts import redirect, render
 
 from consultas.models import Consulta
-from cuentas.models import Usuario
 from servicios.models import Servicio
 
 
@@ -18,7 +17,6 @@ def home(request):
                 estado=Consulta.Estado.PENDIENTE
             ).count(),
             "consultas_total": Consulta.objects.count(),
-            "solicitudes_pendientes": Usuario.objects.filter(estado="pendiente").count(),
             "recientes": Consulta.objects.select_related("servicio")[:5],
         }
     return render(request, "inicio/home.html", contexto)

@@ -19,7 +19,7 @@ class UsuarioAdmin(UserAdmin):
         return request.user.is_superuser
 
     def has_add_permission(self, request):
-        # Las altas pasan por registro; el primer administrador usa createsuperuser.
+        # El administrador se crea con createsuperuser.
         return False
 
     def has_delete_permission(self, request, obj=None):
