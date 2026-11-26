@@ -22,7 +22,7 @@ class Consulta(models.Model):
         related_name="consultas",
     )
     estado = models.CharField(
-        max_length=12, choices=Estado.choices, default=Estado.PENDIENTE
+        max_length=20, choices=Estado.choices, default=Estado.PENDIENTE
     )
     administrador = models.ForeignKey(
         settings.AUTH_USER_MODEL,

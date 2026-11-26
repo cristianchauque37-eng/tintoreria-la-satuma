@@ -16,12 +16,12 @@ class Servicio(models.Model):
     categoria = models.CharField(
         max_length=12, choices=Categoria.choices, default=Categoria.TINTORERIA
     )
-    descripcion = models.TextField("descripción", blank=True, max_length=2000)
+    descripcion = models.TextField("descripción", blank=True, max_length=255)
     precio = models.DecimalField(
         max_digits=10, decimal_places=2, validators=[MinValueValidator(0)]
     )
     imagen = models.ImageField(
-        "imagen", upload_to="servicios/", blank=True, null=True,
+        "imagen", upload_to="servicios/", max_length=255, blank=True, null=True,
         help_text="Opcional. Formatos JPG, PNG o WEBP.",
     )
     activo = models.BooleanField(
